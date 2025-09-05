@@ -5,10 +5,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Security
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 ALLOWED_HOSTS = ["*"]
 
+# Installed apps
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -61,12 +63,12 @@ DATABASES = {
     )
 }
 
-# Static & Media
+# Static files
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_URL = "/media/"
+# Media → Cloudinary only (REMOVE local /media/)
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 cloudinary.config(
