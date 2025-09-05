@@ -1,0 +1,24 @@
+<section class="who-we-are py-5" style="background-color: #111;">
+  <div class="container text-center">
+    
+    <h2 class="fw-bold mb-4 who-we-title">
+      {{ section.title }}
+    </h2>
+    
+    {% if section.subtitle %}
+      <h5 class="text-muted mb-3">{{ section.subtitle }}</h5>
+    {% endif %}
+    
+    <div class="who-we-body mx-auto" style="max-width: 800px;">
+      {{ section.body|linebreaks }}
+    </div>
+    
+    {% if section.image %}
+      <div class="mt-4">
+        <img src="{{ section.image.url }}" alt="{{ section.title }}" 
+             class="img-fluid rounded-3 shadow" style="max-height: 400px;">
+      </div>
+    {% endif %}
+    
+  </div>
+</section>

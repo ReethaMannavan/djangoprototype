@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="py-5 bg-black text-light">
+  <div class="container">
+    <h2 class="who-we-title mb-4">Main Option</h2>
+    <p class="fs-5">
+      Our main options give you direct access to the tools and strategies 
+      that matter most in modern trading.
+    </p>
+
+    <ul class="list-unstyled mt-3 fs-5">
+      <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Advanced trading strategies</li>
+      <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Real-time execution</li>
+      <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Optimized for growth</li>
+    </ul>
+
+    <a href="{% url 'become_partner' %}" class="btn btn-outline-success mt-4 px-4">Get Started</a>
+  </div>
+</section>
+{% endblock %}

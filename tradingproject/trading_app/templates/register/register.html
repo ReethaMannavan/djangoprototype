@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid register-container vh-100 d-flex align-items-center justify-content-center">
+  <div class="row w-100 h-100">
+
+    <!-- Left Side (Dynamic Image) -->
+    <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center p-0">
+      {% if register_page and register_page.image %}
+        <img src="{{ register_page.image.url }}" alt="Register Image" class="register-image img-fluid">
+      {% else %}
+        <div class=" h-100 d-flex align-items-center justify-content-center">
+          <p class="text-muted">[Upload registration image in admin]</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Right Side (Form) -->
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
+      <div class="register-form">
+        <h3 class="register-title">Create an Account</h3>
+
+        <form method="post" enctype="multipart/form-data" novalidate>
+          {% csrf_token %}
+
+          <!-- Name -->
+          <div class="mb-3">
+            <label for="id_name" class="form-label">Full Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+              <div class="text-danger small">{{ form.name.errors.0 }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Mobile -->
+          <div class="mb-3">
+            <label for="id_mobile" class="form-label">Mobile Number</label>
+            {{ form.mobile }}
+            {% if form.mobile.errors %}
+              <div class="text-danger small">{{ form.mobile.errors.0 }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="id_email" class="form-label">Email Address</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+              <div class="text-danger small">{{ form.email.errors.0 }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="id_password1" class="form-label">Password</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+              <div class="text-danger small">{{ form.password1.errors.0 }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="mb-3">
+            <label for="id_password2" class="form-label">Confirm Password</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+              <div class="text-danger small">{{ form.password2.errors.0 }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid mb-3">
+            <button type="submit" class="register-btn">Register</button>
+          </div>
+
+          <!-- Already have account -->
+          <p class="already-text">
+            Already have an account? 
+            <a href="{% url 'login' %}">Login</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

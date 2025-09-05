@@ -1,0 +1,23 @@
+<section class="practices-section">
+  <div class="container">
+    <div class="practices-wrapper">
+      {% for practice in practices %}
+        <div class="practice-card {% if practice.highlight %}highlight{% endif %}">
+          <h3 class="practice-number">
+            {{ practice.number|default:"0" | stringformat:"02d" }}.
+          </h3>
+          <h4 class="practice-title">{{ practice.title }}</h4>
+
+          {% if practice.highlight %}
+            <p class="practice-description">{{ practice.description }}</p>
+            {% if practice.button_text and practice.button_link %}
+              <a href="{{ practice.button_link }}" class="learn-more">
+                {{ practice.button_text }} →
+              </a>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

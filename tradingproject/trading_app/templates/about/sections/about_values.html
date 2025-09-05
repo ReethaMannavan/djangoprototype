@@ -1,0 +1,31 @@
+<section class="values-section py-5" style="background-color:#f9f9f9;">
+  <div class="container text-center">
+    
+    <h2 class="fw-bold mb-4" style="color:#000;">{{ section.title }}</h2>
+    
+    {% if section.subtitle %}
+      <p class="text-muted mb-5">{{ section.subtitle }}</p>
+    {% endif %}
+    
+    <div class="row g-4">
+      {% for feature in section.features.all %}
+      <div class="col-md-4">
+        <div class="value-card p-4 h-100 rounded-3 shadow bg-white">
+          
+          {% if feature.icon %}
+            <div class="mb-3">
+              <img src="{{ feature.icon.url }}" alt="{{ feature.headline }}" 
+                   class="img-fluid" style="height:50px;">
+            </div>
+          {% endif %}
+          
+          <h5 class="fw-bold">{{ feature.headline }}</h5>
+          <p class="mb-0">{{ feature.description }}</p>
+          
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+  </div>
+</section>

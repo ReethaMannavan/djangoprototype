@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for section in sections %}
+    {% if section.kind == 'hero' %}
+      {% include "about/sections/about_hero.html" %}
+    {% elif section.kind == 'who_we' %}
+      {% include "about/sections/about_who_we.html" %}
+    {% elif section.kind == 'mission' %}
+      {% include "about/sections/about_mission.html" %}
+    {% elif section.kind == 'vision' %}
+      {% include "about/sections/about_vision.html" %}
+    {% elif section.kind == 'why_choose' %}
+      {% include "about/sections/about_why_choose.html" %}
+    
+    {% endif %}
+  {% endfor %}
+{% endblock %}

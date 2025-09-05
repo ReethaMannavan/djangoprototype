@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% include "home/sections/_hero.html" %}
+
+{% for highlight in highlights %}
+    {% include "home/sections/_highlight.html" %}
+{% endfor %}
+
+{% include "home/sections/_practices.html" %}
+
+
+{% include "home/sections/_how_it_works.html" %}
+
+{% include "home/sections/_dashboardnew.html" %}
+
+{% include "home/sections/_community.html" %}
+
+{% endblock %}

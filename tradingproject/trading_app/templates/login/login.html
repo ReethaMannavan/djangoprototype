@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid vh-100 register-container">
+  <div class="row h-100">
+    
+    <!-- Left Side (Dynamic Image) -->
+    <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">
+      {% if login_page and login_page.image %}
+        <img src="{{ login_page.image.url }}" alt="Login Image" class="register-image">
+      {% else %}
+        <p class="text-muted">[Upload login image in admin]</p>
+      {% endif %}
+    </div>
+
+    <!-- Right Side (Form) -->
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
+      <div class="register-form">
+        <h3 class="register-title">Login</h3>
+
+        {% if error %}
+          <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form method="post" novalidate>
+          {% csrf_token %}
+          
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" name="email" id="email" required>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="password" required>
+          </div>
+
+          <!-- Forgot Password -->
+          <div class="mb-3">
+            <a href="#" class="form-label">Forgot your password?</a>
+          </div>
+
+          <!-- Login Button -->
+          <div class="d-grid mb-3">
+            <button type="submit" class="register-btn w-100">Login</button>
+          </div>
+
+          <!-- New User Link -->
+          <p class="already-text mt-3">
+            New User? 
+            <a href="{% url 'register' %}">Create Your Account</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

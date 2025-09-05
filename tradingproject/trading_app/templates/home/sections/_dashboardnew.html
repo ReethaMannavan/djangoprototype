@@ -1,0 +1,348 @@
+{% load static %}
+
+<!-- ================= HERO / HIGHLIGHTS / HOW IT WORKS / COMMUNITY / PRACTICE ================= -->
+<!-- (Keep your other homepage sections above here – not touching them) -->
+
+<!-- ================= DASHBOARD SECTION ================= -->
+<section id="dashboard" class="py-5 mx-5" style="background-color: #000">
+  <div class="container-fluid dashboard-wrapper">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-md-2 bg-dark text-white">
+        <div class="p-3">
+          <!-- Header row -->
+          <!-- Header row -->
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="d-flex align-items-center">
+              {% if dashboard_user.logo %}
+              <img
+                src="{{ dashboard_user.logo.url }}"
+                class="rounded-circle me-2"
+                alt="{{ dash_user.name }} Logo"
+                style="width: 40px; height: 40px"
+              />
+              {% else %}
+              <img
+                src="{% static 'images/default-logo.png' %}"
+                class="rounded-circle me-2"
+                alt="Default Logo"
+                style="width: 40px; height: 40px"
+              />
+              {% endif %}
+              <h6 class="mb-0">{{ dash_user.name|default:"Himaa Trading" }}</h6>
+            </div>
+            <button class="btn btn-sm btn-outline-light">☰</button>
+          </div>
+
+          <!-- User (Dynamic) -->
+          {% if dashboard_user %}
+          <div class="d-flex align-items-center my-3">
+            <img
+              src="{{ dashboard_user.profile_image.url }}"
+              class="rounded-circle me-2"
+              style="width: 40px; height: 40px"
+              alt="{{ dashboard_user.name }}"
+            />
+            <div>
+              <p class="mb-0 fw-bold">Hello {{ dashboard_user.name }}</p>
+              <small>{{ dashboard_user.email }}</small>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Nav (Static) -->
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link active dash">Dashboard</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link text-white">Live Trading Room</a>
+            </li>
+
+            <!-- Dropdown Trading Tools -->
+            <li class="nav-item mb-2">
+              <a
+                class="nav-link text-white"
+                data-bs-toggle="collapse"
+                data-bs-target="#tradingTools"
+                role="button"
+              >
+                Trading Tools ▾
+              </a>
+              <div class="collapse" id="tradingTools">
+                <ul class="list-unstyled ps-3">
+                  <li>
+                    <a href="#" class="nav-link text-white">FX Calculator</a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white">News Calendar</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <!-- Dropdown Elite Trader Tools -->
+            <li class="nav-item mb-2">
+              <a
+                class="nav-link text-white"
+                data-bs-toggle="collapse"
+                data-bs-target="#eliteTools"
+                role="button"
+              >
+                Elite Trader Tools ▾
+              </a>
+              <div class="collapse" id="eliteTools">
+                <ul class="list-unstyled ps-3">
+                  <li>
+                    <a href="#" class="nav-link text-white">Market Analysis</a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white"
+                      >Trading Central Plugin</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white"
+                      >Auto Trendline Plugin</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link text-white"
+                      >Support Residence plt</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link text-white">Mentorship</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link text-white">Book a Meeting</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main Dashboard -->
+      <main class="col-md-10 px-md-4">
+        <!-- Top Bar -->
+        <div
+          class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-4 text-white"
+        >
+          <h6>Account 123456 <span class="badge bg-success">Active</span></h6>
+          <div>
+            <span class="me-3">Evaluation $15,000</span>
+            <button class="btn btn-outline-light btn-sm reset">RESET</button>
+          </div>
+        </div>
+
+        <!-- Stat Cards (Dynamic) -->
+        <div class="row mb-4">
+          {% for stat in dashboard_stats %}
+          <div class="col-md-3 mb-3">
+            <div class="card text-center shadow-sm">
+              <div class="stat-icon">
+                <img
+                  src="{{ stat.icon.url }}"
+                  alt="{{ stat.title }}"
+                  width="24"
+                  height="24"
+                />
+              </div>
+              <div class="card-body mt-4">
+                <h6>{{ stat.title }}</h6>
+                <h3>{{ stat.value }}</h3>
+                {% if stat.change %}
+                <small class="text-{{ stat.change_type }}"
+                  >{{ stat.change }}</small
+                >
+                {% endif %} {% if stat.note %}
+                <small>{{ stat.note }}</small>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Chart + Widgets (Static for now) -->
+        <div class="row align-items-stretch">
+  <!-- Chart -->
+  <div class="col-md-8 mb-3 d-flex">
+    <div class="card shadow-sm flex-fill">
+      <div class="card-header d-flex justify-content-between">
+        <span>Account Balance</span>
+        <select class="form-select form-select-sm w-auto">
+          <option>Year</option>
+          <option>Month</option>
+        </select>
+      </div>
+      <div class="card-body" style="height: 350px">
+        <canvas id="accountBalanceChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Widgets -->
+  <div class="col-md-4 mb-3 d-flex flex-column">
+    <div class="card shadow-sm mb-3 flex-fill">
+      <div class="card-body text-center">
+        <h6>Drawdown</h6>
+        <div class="d-flex justify-content-center">
+          <div class="text-center mx-2">
+            <div class="circle-progress">25%</div>
+            <p class="mt-2 text-white">Of Your Balance Left</p>
+          </div>
+          <div class="text-center mx-2">
+            <div class="circle-progress">31%</div>
+            <p class="mt-2 text-white">Of Your Equity Left</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow-sm flex-fill">
+      <div class="card-body text-center">
+        <h6>Goals</h6>
+        <div class="d-flex justify-content-center">
+          <div class="text-center mx-2">
+            <div class="circle-progress">11%</div>
+            <p class="mt-2 text-white">$1,087 Out Of $10,000</p>
+          </div>
+          <div class="text-center mx-2">
+            <div class="circle-progress">31%</div>
+            <p class="mt-2 text-white">7 Trading Days out of 30 Days</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </main>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DASHBOARD STYLES ================= -->
+<style>
+  .dashboard-wrapper {
+    border: 20px solid #dcff7b;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: transparent;
+  }
+  .dash {
+    color: #dcff7b;
+  }
+  .reset {
+    color: white;
+    border-radius: 20px;
+  }
+  .card {
+    border-radius: 20px;
+    background-color: #73737380;
+    color: #fff;
+    position: relative;
+  }
+  .stat-icon {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #dcff7b;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
+  .stat-icon img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+  }
+  .circle-progress {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 6px solid #e9ecef;
+    border-top-color: #f84949;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: black;
+    margin: 10px;
+    background-color: #d9d9d9;
+  }
+</style>
+
+<!-- ================= DASHBOARD SCRIPT ================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const data = {
+    history: [
+      { month: "Jun", balance: 50, equity: 40 },
+      { month: "Jul", balance: 70, equity: 35 },
+      { month: "Aug", balance: 90, equity: 60 },
+      { month: "Sep", balance: 60, equity: 70 },
+      { month: "Oct", balance: 100, equity: 65 },
+    ],
+  };
+
+  const labels = data.history.map((item) => item.month);
+  const balance = data.history.map((item) => item.balance);
+  const equity = data.history.map((item) => item.equity);
+
+  const ctx = document.getElementById("accountBalanceChart").getContext("2d");
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Balance",
+          data: balance,
+          borderColor: "#00FF7F",
+          borderWidth: 3,
+          fill: false,
+          tension: 0.4,
+          pointRadius: 0,
+        },
+        {
+          label: "Equity",
+          data: equity,
+          borderColor: "#FF4C4C",
+          borderWidth: 3,
+          fill: false,
+          tension: 0.4,
+          pointRadius: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: "#fff" } },
+      },
+      scales: {
+        x: {
+          ticks: { color: "#fff" },
+          grid: { color: "rgba(255,255,255,0.1)" },
+        },
+        y: {
+          ticks: { color: "#fff" },
+          grid: { color: "rgba(255,255,255,0.1)" },
+        },
+      },
+    },
+  });
+</script>

@@ -1,0 +1,78 @@
+{% load static %}
+
+<section class="highlight-section position-relative py-5">
+
+  <!-- First division: Ellipse background + centered image + line -->
+  <div class="highlight-decor position-relative text-center mb-5">
+    
+    <!-- Ellipse background -->
+    <div style="
+      position: absolute;
+      width: 701px;
+      height: 283px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      background: linear-gradient(91.3deg, #DCFF7B 3.23%, #C8B7B7 51.08%, #DCFF7B 98.93%);
+      filter: blur(50px);
+      border-radius: 50%;
+      z-index: 1;">
+    </div>
+
+    <!-- Centered top image -->
+    {% if highlight.center_image %}
+    <img src="{{ highlight.center_image.url }}" alt="{{ highlight.title }}" 
+         style="
+         position: relative;
+         width: 426px;
+         height: 370px;
+         object-fit: contain;
+         filter: drop-shadow(20px 20px 20px rgba(0,0,0,0.25));
+         z-index: 2;">
+    {% endif %}
+
+    <!-- Line element -->
+    <div style="
+      position: absolute;
+      width: 647px;
+      height: 1px;
+      left: -58px;
+      top: 50%;
+      border: 1px solid #FFFFFF;
+      z-index: 0;">
+    </div>
+
+  </div>
+
+  <!-- Second division: Content grid -->
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- Left column (70%) -->
+      <div class="col-md-7">
+    <!-- Top row: Description -->
+    <p class="lead mb-4">{{ highlight.content|safe }}</p>
+
+    <!-- Bottom row: Two paragraphs -->
+    <div class="row">
+      <div class="col-md-6">
+        <p>{{ highlight.paragraph_left |safe  }}</p>
+      </div>
+      <div class="col-md-6">
+        <p>{{ highlight.paragraph_right|safe }}</p>
+      </div>
+    </div>
+</div>
+
+
+      <!-- Right column (30%) -->
+      <div class="col-md-5 text-center">
+        {% if highlight.right_image %}
+        <img src="{{ highlight.right_image.url }}" alt="{{ highlight.title }}" class="img-fluid rounded shadow-sm">
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+
+</section>

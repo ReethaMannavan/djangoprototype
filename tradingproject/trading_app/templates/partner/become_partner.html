@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}Become a Partner | TRACO{% endblock %}
+
+{% block content %}
+<div class="become-partner-page container py-5">
+
+    <!-- Section 1: Hero + Form -->
+    <div class="row align-items-center mb-5">
+        <!-- Left: Hero Image -->
+        <div class="col-md-6">
+            {% if hero and hero.hero_image %}
+                <img src="{{ hero.hero_image.url }}" class="img-fluid" alt="Hero Image">
+            {% endif %}
+        </div>
+
+        <!-- Right: Form -->
+        <div class="col-md-6">
+            <h2 class="mb-4">
+                Welcome to the First Step of Becoming a <span style="color:#BAFD02;">TRACO</span> Partner
+            </h2>
+
+            <form id="partnerForm">
+                <!-- First Row: Name + Phone -->
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" id="name" class="form-control" placeholder="Your Name">
+                        <div class="text-danger small mt-1" id="error-name"></div>
+                    </div>
+                    <div class="col">
+                        <input type="text" id="phone" class="form-control" placeholder="Phone Number">
+                        <div class="text-danger small mt-1" id="error-phone"></div>
+                    </div>
+                </div>
+
+                <!-- Second Row: Email -->
+                <div class="mb-3">
+                    <input type="email" id="email" class="form-control" placeholder="Email ID">
+                    <div class="text-danger small mt-1" id="error-email"></div>
+                </div>
+
+                <!-- Third Row: City + Pin Code -->
+                <div class="row mb-3">
+                    <div class="col">
+                        <select id="city" class="form-select">
+                            <option value="">Select City</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Ahmedabad">Ahmedabad</option>
+                            <option value="Jaipur">Jaipur</option>
+                        </select>
+                        <div class="text-danger small mt-1" id="error-city"></div>
+                    </div>
+                    <div class="col">
+                        <input type="text" id="pincode" class="form-control" placeholder="Pin Code">
+                        <div class="text-danger small mt-1" id="error-pincode"></div>
+                    </div>
+                </div>
+
+                <!-- Send OTP Button -->
+    <button type="button" id="sendOtpBtn" class="btn mt-3" 
+        style="background-color:#BAFD02; color:#111; width:250px;">
+    Send OTP
+</button>
+
+
+            </form>
+
+            <!-- Contact Info -->
+            <p class="mt-4">Contact us Alternatively, You can Contact Our Business Partner Team</p>
+            <p>Phone: {{ contact.phone_number }}</p>
+            <p>Email: {{ contact.email }}</p>
+        </div>
+    </div>
+
+    <!-- Section 2: Description Text -->
+    <div class="text-center mb-5">
+        <h3 class="neon">People become partners to earn passive income and grow with a trusted brand.</h3>
+        <p>They get access to high commissions, marketing support, and long-term business potential.</p>
+        <hr class="mx-auto" style="width:50%; border-top:1px solid #fff;">
+    </div>
+
+    <!-- Section 3: Features Grid (2x2) -->
+    <div class="row">
+        {% for feature in features %}
+            <div class="col-md-6 mb-4">
+                <div class="d-flex">
+                    {% if feature.icon %}
+                        <img src="{{ feature.icon.url }}" class="feature-icon me-3" alt="{{ feature.title }}">
+                    {% endif %}
+                    <div>
+                        <h5 class="mb-1">{{ feature.title }}</h5>
+                        <p class="mb-0">{{ feature.description }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

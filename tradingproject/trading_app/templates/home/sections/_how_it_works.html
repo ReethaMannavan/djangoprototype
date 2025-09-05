@@ -1,0 +1,132 @@
+
+<section class="how-it-works py-5 text-center position-relative">
+  <div class="container">
+    <h2 class="text-white mb-5">How it Works?</h2>
+
+    <div class="timeline-container">
+      <!-- Two Curve Lines -->
+      <svg class="timeline-line" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+        <!-- Upper curve -->
+        <path id="curve1" d="" stroke="#BAFD02" stroke-width="3"
+              fill="transparent" filter="url(#glow)"/>
+        <!-- Lower curve -->
+        <path id="curve2" d="" stroke="#BAFD02" stroke-width="3"
+              fill="transparent" filter="url(#glow)"/>
+
+        <defs>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      <!-- Dynamic Steps -->
+     <div class="timeline-steps">
+  {% for step in how_it_works_steps %}
+    <div class="timeline-step step{{ forloop.counter }}">
+      <div class="circle">
+        <img src="{{ step.icon.url }}" alt="{{ step.title }}">
+      </div>
+      <h5 class="title">{{ step.title }}</h5>
+      <p class="desc">{{ step.description }}</p>
+    </div>
+  {% endfor %}
+</div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Control Panel -->
+<div id="controls" style="background:#111; color:#fff; padding:20px; margin-top:20px;">
+
+  <div id="sliders"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const steps = document.querySelectorAll(".timeline-step");
+  const curve1 = document.getElementById("curve1");
+  const curve2 = document.getElementById("curve2");
+  const slidersDiv = document.getElementById("sliders");
+
+  if (!steps.length || !curve1 || !curve2) return;
+
+  // Icon coordinates
+  let xs = [150, 400, 650, 850];
+  let ys = [220, 340, 280, 340];
+
+  function drawCurves() {
+    let d1 = `M 50 450 `;
+    for (let i = 0; i < xs.length; i++) {
+      d1 += `T ${xs[i]} ${ys[i]} `;
+    }
+    d1 += `T 1150 250`;
+
+    let d2 = `M 50 470 `;
+    for (let i = 0; i < xs.length; i++) {
+      d2 += `T ${xs[i]} ${ys[i] + 20} `;
+    }
+    d2 += `T 1150 270`;
+
+    curve1.setAttribute("d", d1);
+    curve2.setAttribute("d", d2);
+
+    steps.forEach((step, i) => {
+      step.style.left = (xs[i] / 1200 * 100) + "%";
+      step.style.top = (ys[i] / 650 * 100) + "%";
+
+      if (i % 2 === 0) {
+        step.classList.add("below");
+        step.classList.remove("above");
+      } else {
+        step.classList.add("above");
+        step.classList.remove("below");
+      }
+    });
+  }
+
+  // Create sliders dynamically for each icon
+  xs.forEach((_, i) => {
+    let wrapper = document.createElement("div");
+    wrapper.style.marginBottom = "10px";
+
+    wrapper.innerHTML = `
+      <label>Icon ${i+1} X: <input type="range" min="50" max="1150" value="${xs[i]}" data-type="x" data-index="${i}" step="10"></label>
+      <span id="xval${i}">${xs[i]}</span>
+      <br>
+      <label>Icon ${i+1} Y: <input type="range" min="100" max="500" value="${ys[i]}" data-type="y" data-index="${i}" step="10"></label>
+      <span id="yval${i}">${ys[i]}</span>
+    `;
+
+    slidersDiv.appendChild(wrapper);
+  });
+
+  slidersDiv.addEventListener("input", (e) => {
+    let type = e.target.dataset.type;
+    let index = e.target.dataset.index;
+    if (type === "x") {
+      xs[index] = +e.target.value;
+      document.getElementById("xval" + index).textContent = xs[index];
+    } else if (type === "y") {
+      ys[index] = +e.target.value;
+      document.getElementById("yval" + index).textContent = ys[index];
+    }
+    drawCurves();
+  });
+
+  drawCurves();
+});
+</script>
+
+
+
+
+

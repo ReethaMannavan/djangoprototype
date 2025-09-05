@@ -1,0 +1,60 @@
+{% if hero %}
+<section class="hero-section" style="background-image: url('{{ hero.bg_image.url }}');">
+    <div class="hero-overlay">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Left Column -->
+                <div class="hero-left">
+                    <h4>{{ hero.subheading }}</h4>
+                    <h1 class="hero-title">{{ hero.heading }}</h1>
+                    <p class="hero-para">{{ hero.paragraph }}</p>
+                    <hr>
+
+                    <!-- Avatars Curved Stack -->
+                  <!-- Avatars Curved Stack + Single Text -->
+<!-- Avatars Curved Stack + Single Text -->
+<div class="hero-avatars-wrapper d-flex align-items-center">
+    <div class="hero-avatars d-flex align-items-center">
+        {% for avatar in hero.avatars.all %}
+            <img src="{{ avatar.image.url }}" class="small-avatar">
+        {% endfor %}
+    </div>
+    {% if hero.avatar_text %}
+        <span class="avatar-text text-white ms-3">{{ hero.avatar_text|safe }}</span>
+    {% endif %}
+</div>
+
+
+
+                    <!-- Arrow Section -->
+                   <div class="hero-arrow-section">
+    <div class="circle-stack">
+        <div class="empty-circle"></div>
+        <div class="arrow-circle">
+            <span class="arrow-icon">→</span>
+        </div>
+    </div>
+    <p class="arrow-text">{{ hero.arrow_paragraph }}</p>
+</div>
+
+
+                </div>
+
+                <!-- Right Column -->
+               <!-- Right Column -->
+<div class="hero-right position-relative">
+    <!-- Decorative Bars -->
+    <div class="hero-bar bar1"></div>
+    <div class="hero-bar bar2"></div>
+    <div class="hero-bar bar3"></div>
+    <div class="hero-bar bar4"></div>
+
+    <!-- Hero Image -->
+    <img src="{{ hero.hero_image.url }}" alt="Hero Image" class="hero-main-img">
+</div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

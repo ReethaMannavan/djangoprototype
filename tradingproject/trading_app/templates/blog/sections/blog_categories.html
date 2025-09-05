@@ -1,0 +1,112 @@
+<div class="blog-section"></div>
+<div class="container py-5">
+  <div class="p-4" style="background:black; border-radius:40px;">
+
+    <!-- Category Tabs (already handled above) -->
+    <div class="d-flex justify-content-center mb-4">
+      <div class="category-tabs d-flex rounded-pill p-2">
+        {% for category, posts in blog_posts.items %}
+          <button class="category-tab {% if forloop.first %}active{% endif %}" 
+                  data-category="cat-{{ category }}">
+            {{ category|title }}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Category Sections -->
+    {% for category, posts in blog_posts.items %}
+     <div class="category-section {% if not forloop.first %}d-none{% endif %}" id="cat-{{ category }}">
+  <div class="cards-grid">
+    {% for post in posts %}
+      <div class="card blog-card {% if forloop.counter > 3 %}d-none{% endif %}">
+        <div class="position-relative">
+          <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+          <div class="card-title-overlay">
+            {{ post.title }}
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="text-dark small mb-1 fw-semibold">{{ post.meta }}</p>
+          <p class="mb-0 text-dark">{{ post.description|truncatechars:100 }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if posts|length > 3 %}
+    <div class="text-center mt-3">
+      <button class="btn btn-outline-success load-more-btn" data-category="cat-{{ category }}">
+        More ↓
+      </button>
+      <button class="btn btn-outline-danger load-less-btn d-none" data-category="cat-{{ category }}">
+        Less ↑
+      </button>
+    </div>
+  {% endif %}
+</div>
+
+    {% endfor %}
+  </div>
+</div>
+
+</div>
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // --- Switch categories ---
+  document.querySelectorAll(".category-tab").forEach(tab => {
+    tab.addEventListener("click", function() {
+      let category = this.getAttribute("data-category");
+
+      // Hide all category sections
+      document.querySelectorAll(".category-section").forEach(sec => sec.classList.add("d-none"));
+
+      // Show selected category
+      document.getElementById(category).classList.remove("d-none");
+
+      // Update active state
+      document.querySelectorAll(".category-tab").forEach(t => t.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+
+  // --- Load More ---
+  document.querySelectorAll(".load-more-btn").forEach(button => {
+    button.addEventListener("click", function() {
+      let category = this.getAttribute("data-category");
+      let hiddenCards = document.querySelectorAll(`#${category} .blog-card.d-none`);
+
+      for (let i = 0; i < 3 && i < hiddenCards.length; i++) {
+        hiddenCards[i].classList.remove("d-none");
+      }
+
+      // Toggle buttons
+      if (document.querySelectorAll(`#${category} .blog-card.d-none`).length === 0) {
+        this.classList.add("d-none");
+        document.querySelector(`#${category} .load-less-btn`).classList.remove("d-none");
+      }
+    });
+  });
+
+  // --- Load Less ---
+  document.querySelectorAll(".load-less-btn").forEach(button => {
+    button.addEventListener("click", function() {
+      let category = this.getAttribute("data-category");
+      let cards = document.querySelectorAll(`#${category} .blog-card`);
+
+      // Hide all except first 3
+      cards.forEach((card, idx) => {
+        if (idx >= 3) card.classList.add("d-none");
+      });
+
+      // Toggle buttons
+      this.classList.add("d-none");
+      document.querySelector(`#${category} .load-more-btn`).classList.remove("d-none");
+    });
+  });
+});
+</script>

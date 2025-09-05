@@ -1,0 +1,36 @@
+{% load static %}
+
+<section class="community-section container my-5">
+   <div class="text-center mb-4">
+    <h2 class="community-title">
+        Build a <span class="highlight">Strong</span> Community
+    </h2>
+    <p class="community-desc">
+        {{ community_section.description|safe }}
+    </p>
+</div>
+
+
+    <!-- First Row -->
+    <div class="row g-3 mb-3">
+        <div class="col-md-4 col-12" data-aos="fade-up">
+            <img src="{{ community_section.image1.url }}" alt="{{ community_section.alt1 }}" class="img-fluid community-img">
+        </div>
+        <div class="col-md-4 col-12" data-aos="fade-up" data-aos-delay="100">
+            <img src="{{ community_section.image2.url }}" alt="{{ community_section.alt2 }}" class="img-fluid community-img">
+        </div>
+        <div class="col-md-4 col-12" data-aos="fade-up" data-aos-delay="200">
+            <img src="{{ community_section.image3.url }}" alt="{{ community_section.alt3 }}" class="img-fluid community-img">
+        </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="row g-3">
+        <div class="col-md-5 col-12" data-aos="fade-right">
+            <img src="{{ community_section.image4.url }}" alt="{{ community_section.alt4 }}" class="img-fluid community-img">
+        </div>
+        <div class="col-md-7 col-12" data-aos="fade-left">
+            <img src="{{ community_section.image5.url }}" alt="{{ community_section.alt5 }}" class="img-fluid community-img">
+        </div>
+    </div>
+</section>

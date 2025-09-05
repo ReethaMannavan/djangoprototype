@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">File Checking</h2>
+  <p>Verify your trading documents and upload compliance files securely.</p>
+  <form>
+    <div class="mb-3">
+      <label for="fileUpload" class="form-label">Upload File</label>
+      <input class="form-control" type="file" id="fileUpload">
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+{% endblock %}
