@@ -1,0 +1,59 @@
+[
+  {
+    "model": "trading_app.dashboarduser",
+    "pk": 1,
+    "fields": {
+      "name": "John Benando",
+      "email": "johnbenando@gmail.in",
+      "profile_image": "dashboard/users/user1.jpg"
+    }
+  },
+  {
+    "model": "trading_app.dashboardstat",
+    "pk": 1,
+    "fields": {
+      "title": "Balance",
+      "value": "$15,078.00",
+      "change": "+55% This Week",
+      "change_type": "success",
+      "note": "",
+      "icon": "dashboard/icons/balance.png"
+    }
+  },
+  {
+    "model": "trading_app.dashboardstat",
+    "pk": 2,
+    "fields": {
+      "title": "Equity",
+      "value": "$13,485.44",
+      "change": "-35% This Week",
+      "change_type": "danger",
+      "note": "",
+      "icon": "dashboard/icons/equity.png"
+    }
+  },
+  {
+    "model": "trading_app.dashboardstat",
+    "pk": 3,
+    "fields": {
+      "title": "Max Risk Capital",
+      "value": "$178.00",
+      "change": "",
+      "change_type": "info",
+      "note": "Updated every 10s",
+      "icon": "dashboard/icons/risk.png"
+    }
+  },
+  {
+    "model": "trading_app.dashboardstat",
+    "pk": 4,
+    "fields": {
+      "title": "Drawdown Limit",
+      "value": "$15,078.00",
+      "change": "",
+      "change_type": "info",
+      "note": "Highest Balance $150,078.00",
+      "icon": "dashboard/icons/drawdown.png"
+    }
+  }
+]
