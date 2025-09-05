@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: trading-website
+    env: python
+    plan: free  # change to starter/standard if needed
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn trading_project.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: trading_project.settings
+      - key: PYTHON_VERSION
+        value: 3.11
+      # Cloudinary settings (better to set them in Render Dashboard > Environment instead of here)
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
